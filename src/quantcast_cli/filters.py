@@ -3,9 +3,16 @@ from functools import reduce, partial
 
 import pandas as pd
 
+from .search import find_first_occurrence, find_last_occurrence, notfound
+
 
 def filter_by_date(date: str, df: pd.DataFrame) -> pd.DataFrame:
-    return df[df.timestamp.str.startswith(date)]
+    first = find_first_occurrence(date, df)
+    last = find_last_occurrence(date, df)
+    if first is notfound or last is notfound:
+        return pd.DataFrame(columns=df.columns)
+
+    return df.iloc[first : last + 1]
 
 
 def calc_session_counts(date: str, df: pd.DataFrame) -> pd.Series:
