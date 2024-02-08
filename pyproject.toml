@@ -25,6 +25,7 @@ build-backend = "hatchling.build"
 managed = true
 dev-dependencies = [
     "pandas-stubs>=2.0.3.230814",
+    "pytest>=8.0.0",
 ]
 
 [tool.rye.scripts]
