@@ -14,6 +14,8 @@ markdown-it-py==3.0.0
 mdurl==0.1.2
 numpy==1.26.4
 pandas==2.2.0
+pandas-stubs==2.1.4.231227
+pyarrow==15.0.0
 pygments==2.17.2
 python-dateutil==2.8.2
 pytz==2024.1
@@ -21,5 +23,6 @@ rich==13.7.0
 shellingham==1.5.4
 six==1.16.0
 typer==0.9.0
+types-pytz==2024.1.0.20240203
 typing-extensions==4.9.0
 tzdata==2023.4

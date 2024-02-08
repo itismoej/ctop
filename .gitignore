@@ -11,3 +11,6 @@ wheels/
 
 # IDE
 .idea
+
+# data files
+cookie_log.csv
