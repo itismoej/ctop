@@ -1,0 +1,31 @@
+[project]
+name = "quantcast-cli"
+version = "0.1.0"
+description = "Find the most active cookies CLI"
+authors = [
+    { name = "Moe Jafari", email = "itismoej@gmail.com" }
+]
+dependencies = [
+    "numpy>=1.24.4",
+    "pandas>=2.0.3",
+    "typer[all]>=0.9.0",
+]
+readme = "README.md"
+requires-python = ">= 3.8"
+
+[project.scripts]
+hello = "quantcast_cli:hello"
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.rye]
+managed = true
+dev-dependencies = []
+
+[tool.hatch.metadata]
+allow-direct-references = true
+
+[tool.hatch.build.targets.wheel]
+packages = ["src/quantcast_cli"]
