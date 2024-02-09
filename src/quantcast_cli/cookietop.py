@@ -5,7 +5,6 @@ from typing import Any
 import typer
 
 from .filters import find_most_active_cookies
-from .time_log import time_log
 
 app = typer.Typer()
 
@@ -29,12 +28,6 @@ def cookietop(
 
     date_str = str(date.date())
 
-    with time_log("Duration"):
-        most_active_cookies = find_most_active_cookies(date_str, file)
-
+    most_active_cookies = find_most_active_cookies(date_str, file)
     for c in most_active_cookies:
         typer.echo(c)
-
-
-if __name__ == "__main__":
-    app()
