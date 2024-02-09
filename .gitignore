@@ -14,3 +14,6 @@ wheels/
 
 # data files
 cookie_log.csv
+
+# testing
+.coverage
