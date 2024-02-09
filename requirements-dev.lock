@@ -10,6 +10,7 @@
 -e file:.
 click==8.1.7
 colorama==0.4.6
+coverage==7.4.1
 iniconfig==2.0.0
 markdown-it-py==3.0.0
 mdurl==0.1.2
