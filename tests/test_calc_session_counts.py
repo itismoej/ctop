@@ -31,3 +31,20 @@ def test_with_valid_single_date(sample_df):
     result = calc_session_counts("2023-01-01", sample_df)
     expected = pd.Series([2, 1], index=["cookie1", "cookie2"])
     pd.testing.assert_series_equal(result, expected, check_names=False)
+
+
+def test_calc_session_counts_with_multiple_dates():
+    df = pd.DataFrame(
+        {
+            "cookie": ["cookie1", "cookie2", "cookie1", "cookie3"],
+            "timestamp": [
+                "2018-12-01T23:30:00+00:00",
+                "2018-12-01T12:24:00+00:00",
+                "2018-12-02T11:21:00+00:00",
+                "2018-12-02T15:45:00+00:00",
+            ],
+        }
+    )
+    result = calc_session_counts("2018-12-01", df)
+    expected = pd.Series([1, 1], index=pd.Index(["cookie1", "cookie2"], name="cookie"))
+    pd.testing.assert_series_equal(result, expected)

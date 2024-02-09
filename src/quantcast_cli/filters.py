@@ -27,21 +27,31 @@ def calc_session_counts(date: str, df: pd.DataFrame) -> pd.Series:
     return filter_by_date(date, df).groupby("cookie").size()
 
 
-def map_reduce(func, iterable):
+def _default_reducer(acc, prev):
+    return acc + prev
+
+
+def map_reduce(func, iterable, reducer=_default_reducer):
     with ProcessPoolExecutor() as executor:
         results = [executor.submit(func, chunk) for chunk in iterable]
     if not results:
         return None
     retrieved_results = map(lambda x: x.result(), results)
-    reduced_result = reduce(
-        lambda acc, prev: acc.add(prev, fill_value=0), retrieved_results
-    )
+    reduced_result = reduce(lambda acc, prev: reducer(acc, prev), retrieved_results)
     return reduced_result
 
 
+def series_reducer(acc, prev):
+    return acc.add(prev, fill_value=0)
+
+
 def find_most_active_cookies(date: str, file, chunk_size: int = 10**6) -> list[str]:
-    chunks = pd.read_csv(file, chunksize=chunk_size)
-    counts = map_reduce(partial(calc_session_counts, date), chunks)
+    try:
+        chunks = pd.read_csv(file, chunksize=chunk_size)
+    except pd.errors.EmptyDataError:
+        return []
+    counter = partial(calc_session_counts, date)
+    counts = map_reduce(counter, chunks, series_reducer)
     max_count: int = counts.max()
     most_active_cookies_series: pd.Series = counts.loc[counts == max_count]
     most_active_cookies: list[str] = most_active_cookies_series.index.tolist()
