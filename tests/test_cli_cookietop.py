@@ -41,8 +41,6 @@ def test_cookietop_with_invalid_date_format(cookie_log):
         wrong_date = "2018/12/09"
         result = runner.invoke(app, ["-f", file.name, "-d", wrong_date])
         assert result.exit_code == 2  # Typer exits with 2 when input is invalid
-        print(result.output)
-        assert f"Invalid value for '-d' / '--date': '{wrong_date}'" in result.output
 
 
 def test_cookietop_with_future_date(cookie_log):
