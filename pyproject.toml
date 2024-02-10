@@ -1,6 +1,6 @@
 [project]
 name = "quantcast-cli"
-version = "0.1.0"
+version = "0.1.1"
 description = "Find the most active cookies CLI"
 authors = [
     { name = "Moe Jafari", email = "itismoej@gmail.com" }
