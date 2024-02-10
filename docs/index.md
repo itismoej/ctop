@@ -40,13 +40,13 @@ $ ctop --help
 
  Usage: ctop [OPTIONS]
 
-╭─ Options ─────────────────────────────────────────────────────────────────────────────────────────╮
-│ --file                -f      PATH        Cookies file path [default: cookie_log.csv]             │
-│ --date                -d      [%Y-%m-%d]  Targeted date in UTC format [default: 2018-12-09]       │
-│ --install-completion                      Install completion for the current shell.               │
-│ --show-completion                         Show completion for the current shell.                  │
-│ --help                                    Show this message and exit.                             │
-╰───────────────────────────────────────────────────────────────────────────────────────────────────╯
+╭─ Options ───────────────────────────────────────────────────────────────────────────────────────────╮
+│ --file                -f      PATH          Cookies file path [default: cookie_log.csv]             │
+│ --date                -d      [%Y-%m-%d]    Targeted date in UTC format [default: 2018-12-09]       │
+│ --install-completion                        Install completion for the current shell.               │
+│ --show-completion                           Show completion for the current shell.                  │
+│ --help                                      Show this message and exit.                             │
+╰─────────────────────────────────────────────────────────────────────────────────────────────────────╯
 ```
 
 
@@ -84,30 +84,30 @@ To run the Quantcast CLI tool using Docker, you can use the following command st
 <!-- termynal -->
 
 ```console
-$ docker run -it --rm \
-  -v /path/to/cookie_log.csv:/file.csv \
-  itismoej/ctop -f /file.csv -d YYYY-MM-DD
+$ docker run -it --rm -v /cookie_log.csv:/file.csv \
+    itismoej/ctop -f /file.csv -d YYYY-MM-DD
+some-cookie-key
 ```
 
-Replace `/path/to/cookie_log.csv` with the full path to your cookie log file on your host machine, `/file.csv` with the path and file name you want to use inside the container, and `YYYY-MM-DD` with the target date you're interested in.
+Replace `/cookie_log.csv` with the full path to your cookie log file on your host machine, `/file.csv` with the path and file name you want to use inside the container, and `YYYY-MM-DD` with the target date you're interested in.
 
 ### Example
 
-If you have a cookie log file named `cookie_log.csv` located in `/home/user/logs` on your machine, and you want to find the most active cookie for **December 9, 2018**, the command would look like this:
+If you have a cookie log file named `cookie_log.csv` located in `/home` on your machine, and you want to find the most active cookie for **December 9, 2018**, the command would look like this:
 
 <!-- termynal -->
 
 ```console
-$ docker run -it --rm \
-  -v /home/user/logs/cookie_log.csv:/data/cookie_log.csv \ 
-  itismoej/ctop -f /data/cookie_log.csv -d 2018-12-09
+$ docker run -it --rm -v /home/cookie_log.csv:/cookie_log.csv \
+    itismoej/ctop -f /cookie_log.csv -d 2018-12-09
+AtY0laUfhglK3lC7
 ```
 
 This command mounts the `cookie_log.csv` file from your host into the Docker container and executes the ctop command inside the container to process the file. The `-it` flag is used to run the container interactively, and `--rm` ensures that the container is removed after execution to prevent accumulation of unused containers.
 
 ### Notes
 
-- Ensure that the volume mapping (-v flag) correctly reflects the path to your cookie log file on your host and the desired path within the container.
+- Ensure that the volume mapping (`-v` flag) correctly reflects the path to your cookie log file on your host and the desired path within the container.
 - The Docker image `itismoej/ctop` is the official image for running the Quantcast CLI tool. Make sure to pull the latest version if you haven't done so recently.
 
 Using Docker to run the Quantcast CLI tool provides a seamless and environment-independent way to analyze your cookie log files, eliminating the need for local Python environment setup.
