@@ -1,0 +1,15 @@
+site_name: Quantcast CLI
+theme:
+  name: material
+  features:
+    - content.code.copy
+  palette:
+    - scheme: slate
+      toggle:
+        icon: material/brightness-4
+        name: Switch to light mode
+
+    - scheme: default
+      toggle:
+        icon: material/brightness-7
+        name: Switch to dark mode
