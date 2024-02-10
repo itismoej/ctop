@@ -1,0 +1,36 @@
+name: Quantcast CLI
+
+on:
+  push:
+    branches: [ "main" ]
+  pull_request:
+    branches: [ "main" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: true
+      matrix:
+        python-version: ["3.9", "3.10", "3.11", "3.12"]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Set up Python ${{ matrix.python-version }}
+      uses: actions/setup-python@v3
+      with:
+        python-version: ${{ matrix.python-version }}
+    - name: setup rye
+      uses: sksat/setup-rye@b2d02e7f6e7c0d6459fcd16551b906a5c2bdc3c2
+      with:
+        version: 0.21.0
+    - name: Install dependencies
+      run: |
+        rye sync
+    - name: Lint
+      run: |
+        rye fmt
+    - name: Test
+      run: |
+        rye run pytest
