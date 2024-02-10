@@ -17,3 +17,6 @@ cookie_log.csv
 
 # testing
 .coverage
+
+# docs
+site/

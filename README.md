@@ -1,5 +1,7 @@
 # Quantcast CLI
 
+For convenience, read the [Documentation](https://docs.torb.at/).
+
 ## Introduction
 
 Quantcast CLI, accessible via the `ctop` command, is designed to analyze cookie log files and identify the most active cookie on a specified date. It processes files containing cookie IDs along with their corresponding timestamps, and outputs the most frequently encountered cookie ID for a given day.
