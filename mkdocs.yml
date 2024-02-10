@@ -13,3 +13,7 @@ theme:
       toggle:
         icon: material/brightness-7
         name: Switch to dark mode
+plugins:
+  - termynal:
+      prompt_literal_start:
+        - "$"
