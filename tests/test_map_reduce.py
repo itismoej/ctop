@@ -1,7 +1,16 @@
-import pandas as pd
 import pytest
+from quantcast_cli.filters import map_reduce, calc_session_counts
 
-from quantcast_cli.filters import map_reduce
+
+@pytest.fixture
+def data():
+    return [
+        {"cookie": "cookie1", "timestamp": "2023-01-01T23:30:00+00:00"},
+        {"cookie": "cookie1", "timestamp": "2023-01-01T23:30:00+00:00"},
+        {"cookie": "cookie2", "timestamp": "2023-01-01T23:30:00+00:00"},
+        {"cookie": "cookie1", "timestamp": "2023-01-01T23:30:00+00:00"},
+        {"cookie": "cookie3", "timestamp": "2023-01-01T23:30:00+00:00"},
+    ]
 
 
 def test_map_reduce_empty_iterable():
@@ -9,38 +18,7 @@ def test_map_reduce_empty_iterable():
     assert result is None
 
 
-def _map_reduce_sum_func(series: pd.Series):
-    return series.sum()
-
-
-def test_reduce_sum_func():
-    assert _map_reduce_sum_func(pd.Series([1, 2, 3])) == 6
-
-
-def test_map_reduce_single_chunk():
-    chunks = [pd.Series([1, 2, 3])]
-    result = map_reduce(_map_reduce_sum_func, chunks)
-    assert result == 6
-
-
-def test_map_reduce_multiple_chunks():
-    chunks = [pd.Series([1, 2, 3]), pd.Series([4, 5, 6]), pd.Series([7, 8, 9])]
-    result = map_reduce(_map_reduce_sum_func, chunks)
-    assert result == 45
-
-
-def _map_reduce_func_that_raises(*args, **kwargs):
-    raise ValueError("An error occurred")
-
-
-def test_map_reduce_exception_raiser_function():
-    with pytest.raises(ValueError):
-        _map_reduce_func_that_raises()
-    with pytest.raises(ValueError):
-        _map_reduce_func_that_raises(1, 2, 3, a="s")
-
-
-def test_map_reduce_function_raises_exception():
-    chunks = [pd.Series([1]), pd.Series([2])]
-    with pytest.raises(ValueError):
-        map_reduce(_map_reduce_func_that_raises, chunks)
+def test_map_reduce(data):
+    result = map_reduce(calc_session_counts, data)
+    expected = {"cookie1": 3, "cookie2": 1, "cookie3": 1}
+    assert result == expected

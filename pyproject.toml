@@ -1,13 +1,11 @@
 [project]
 name = "quantcast-cli"
-version = "0.1.1"
+version = "0.2.0"
 description = "Find the most active cookies CLI"
 authors = [
     { name = "Moe Jafari", email = "itismoej@gmail.com" }
 ]
 dependencies = [
-    "numpy>=1.24.4",
-    "pandas>=2.0.3",
     "typer[all]>=0.9.0",
     "pyarrow>=15.0.0",
 ]
@@ -24,7 +22,6 @@ build-backend = "hatchling.build"
 [tool.rye]
 managed = true
 dev-dependencies = [
-    "pandas-stubs>=2.0.3.230814",
     "pytest>=8.0.0",
     "coverage>=7.4.1",
     "mkdocs-material>=9.5.8",
